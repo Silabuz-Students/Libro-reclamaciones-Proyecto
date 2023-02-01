@@ -9,3 +9,90 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Empresa {
+  id                Int       @id @default(autoincrement())
+  ruc               String       @unique
+  nombre            String
+  domicilio_fiscal  String
+  telefono          String    @unique
+  email             String    @unique
+  password          String
+
+  last_session      DateTime?
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+  
+  reclamos Reclamo[]
+
+  @@map("empresas")
+}
+
+
+model Reclamo {
+  id                Int     @id @default(autoincrement())
+  nro_seguimiento   String
+  nombres           String
+  apellidos         String
+  fecha_reclamo     DateTime @default(now())
+  mayor_edad        Boolean @default(false)
+  tipo_documento    Tipo_Doc @default(DNI)
+  nro_dni           String
+  nombre_apoderado  String?
+  direccion         String?
+  referencia        String?
+  departamento      String?
+  provincia         String?
+  distrito          String?
+  email             String
+  telefono          String
+  tipo_reclamo      Tipo_Reclamo @default(QUEJA)
+  motivo_reclamo    String
+  pedido_reclamo    String
+  estado_reclamo    Estado_Reclamo @default(ABIERTO)
+
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  detalle_reclamo   Detalle_reclamo?
+
+  empresa           Empresa @relation(fields: [empresaId], references: [id])
+  empresaId         Int
+  @@map("reclamos")
+}
+enum Estado_Reclamo {
+  ABIERTO
+  CERRADO
+}
+enum Tipo_Doc {
+  DNI
+  CE
+  PASSPORT
+}
+
+enum Tipo_Reclamo {
+  QUEJA
+  RECLAMO
+}
+model Detalle_reclamo {
+  id                Int     @id @default(autoincrement())
+  fecha_compra      DateTime
+  tipo_comprobante  Tipo_Comprobante @default(BOLETA)
+  nro_comprobante   String
+  monto_producto    Float
+  codigo_producto   String
+  detalle_producto  String
+
+  reclamo           Reclamo @relation(fields: [reclamoId], references: [id])
+  reclamoId         Int  @unique
+
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+  
+  @@map("detalle_reclamos")
+}
+
+enum Tipo_Comprobante {
+  FACTURA
+  BOLETA
+}
