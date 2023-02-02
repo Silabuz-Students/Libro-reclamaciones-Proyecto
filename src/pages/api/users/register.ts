@@ -28,17 +28,15 @@ export default async function handler(
             })
         }
 
-        const nuevaEmpresa ={
+        const data ={
             ruc,
             nombre,
             domicilio_fiscal,
             telefono,
             email,
             password : await hashPassword(password)
-        } as Empresa
-
-
-        console.log(nuevaEmpresa)
+        } 
+        const empresaCreada = await prisma.empresa.create({data})
 
         return res.status(201).json({
             message: "usuario creado correctamente",
