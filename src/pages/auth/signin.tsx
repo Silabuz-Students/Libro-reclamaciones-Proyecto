@@ -57,7 +57,7 @@ const Signin = ({ providers, csrfToken }: props) => {
       if (!res.ok) {
         setErrors("Contrasena o usuario incorrecto");
       } else {
-        router.push("/dashboard")
+        router.push("/app")
       }
     })
   } else {
