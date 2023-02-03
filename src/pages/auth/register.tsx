@@ -12,6 +12,7 @@ type form = {
 }
 
 export default function Register() {
+  const [errors, setErrors] = useState<string>("")
   const router = useRouter()
   const [values, setValues] = useState<form>({
     nombre: "",
@@ -49,11 +50,8 @@ export default function Register() {
       password: values.password
     }
     console.log(data)
-
     // Send the data to the server in JSON format.
     const JSONdata = JSON.stringify(data)
-    console.log(JSONdata)
-
     // API endpoint where we send form data.
     const endpoint = '/api/users/register'
     // Form the request for sending data to the server.
@@ -74,13 +72,16 @@ export default function Register() {
     // Get the response data from server as JSON.
     // If server returns the name submitted, that means the form works.
     const result = await response.json()
-    if (response.status == 201){
-      alert(`${result.message} ${ data.email}`)
+    if (response.status == 201) {
+      alert(`${result.message} ${data.email}`)
       router.push("/auth/signin")
-    }else{
-      alert("ERROR AL INGRESAR LOS DATOS")
+    } else if (response.status == 400) {
+      setErrors(result.message)
     }
-    
+    else {
+      setErrors("ERROR DEL SERVIDOR")
+    }
+
   }
 
 
@@ -189,8 +190,12 @@ export default function Register() {
               </button>
             </div>
             <div className="flex flex-col space-y-5">
-              <span className="flex items-center justify-center space-x-2">
-
+              <span
+                className="flex items-center justify-center space-x-2 emoji"
+                role="img">
+                <p className="text-sm font-semibold text-red-500">
+                  <span>{errors}</span>
+                </p>
               </span>
             </div>
           </form>
