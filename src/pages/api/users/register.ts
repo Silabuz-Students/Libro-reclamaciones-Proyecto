@@ -1,7 +1,8 @@
 import prisma from "@/services/prisma";
 import { Empresa } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import { hashPassword,comparePassword } from "@/lib/auth";
+import { hashPassword, comparePassword } from "@/lib/auth";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 type Data = {
     message: string
@@ -14,41 +15,50 @@ export default async function handler(
 ) {
 
     try {
-        const { ruc,nombre,domicilio_fiscal,telefono,email,password } =req.body
+        const { ruc, nombre, domicilio_fiscal, telefono, email, password } = req.body
 
-        const empresa = await prisma.empresa.findUnique({
+        const empresa: Empresa | null = await prisma.empresa.findUnique({
             where: {
-                email
+                email,
             }
+
+
         })
         if (empresa) {
             return res.status(400).json({
-                message: "Email ya existe",
-                ok:false
+                message: "Usuario ya existe",
+                ok: false
             })
         }
 
-        const data ={
+        const data = {
             ruc,
             nombre,
             domicilio_fiscal,
             telefono,
             email,
-            password : await hashPassword(password)
-        } 
-        const empresaCreada = await prisma.empresa.create({data})
+            password: await hashPassword(password)
+        }
+        const empresaCreada = await prisma.empresa.create({ data })
 
         return res.status(201).json({
             message: "usuario creado correctamente",
-            ok:true
+            ok: true
         })
-        
+
     } catch (error) {
+
+        if (error instanceof PrismaClientKnownRequestError) {
+            return res.status(400).json({
+                message: "Usuario ya existe con el mismo ruc o telefono",
+                ok: false
+            })
+        }
         return res.status(500).json({
-            message:"Internal Server error",
-            ok:false
+            message: "Internal Server error",
+            ok: false
         })
-        
+
     }
-    
+
 }
