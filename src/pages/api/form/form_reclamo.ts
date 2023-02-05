@@ -9,73 +9,42 @@ type Data = {
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<any>
+    res: NextApiResponse<Data>
 ) {
 
     if (req.method !== 'POST') {
         return res.status(405).json({
             message: 'Only POST requests are allowed.'
         });
-    }
+    };
 
     try {
         const body =req.body
+        const tipo_reclamo_body = body.tipo_reclamo.toUpperCase();
 
-        let last_item: Reclamo | null;
-
-        if (body.tipo_reclamo === 'RECLAMO') {
-            last_item = await prisma.reclamo.findFirst({
-                where: {
-                    tipo_reclamo: 'RECLAMO'
-                },
-                orderBy: {
-                    id: 'desc'
-                }
-            });
-
-        } else if (body.tipo_reclamo === 'QUEJA') {
-            last_item = await prisma.reclamo.findFirst({
-                where: {
-                    tipo_reclamo: 'QUEJA'
-                },
-                orderBy: {
-                    id: 'desc'
-                }
-            });
-        }
+        const last_item: Reclamo | null = await prisma.reclamo.findFirst({
+            where: {
+                tipo_reclamo: tipo_reclamo_body
+            },
+            orderBy: {
+                id: 'desc'
+            }
+        });
 
         let id_item = 0;
 
         if (last_item != null){
-
             id_item += parseInt(last_item.nro_seguimiento.substring(2,9)) + 1;
-
         } else {
             id_item += 1;
         };
 
-        console.log(last_item);
-        console.log(id_item);
-
-        const date_now: Date = new Date();
-        const year = date_now.getFullYear();
-
-        console.log((year));
-
-        let detalle = ''
-        if (body.detalle_reclamo != null && body.tipo_reclamo === 'RECLAMO' ){
-            detalle = 'R';
-
-        } else {
-            detalle = 'Q';
-        };
-
+        let RoQ = tipo_reclamo_body.substring(0,1);
         let digit_id = id_item.toString().length;
         let num_seg = '0'.repeat(7-digit_id) + id_item.toString();
+        let year = (new Date()).getFullYear();
 
-        const nro_seguimiento  = `${detalle}-${num_seg}-${year}`;
-        
-        console.log((nro_seguimiento));
+        const nro_seguimiento  = `${RoQ}-${num_seg}-${year}`;
 
         const data_common = {
             nro_seguimiento,
@@ -102,7 +71,6 @@ export default async function handler(
         };
 
         let data:Prisma.ReclamoCreateInput;
-        let common = ''
 
         if (body.detalle_reclamo != null) {
             data = {
@@ -118,27 +86,21 @@ export default async function handler(
                     }
                 }
             }
-
-            common = 'Reclamo';
-
         } else {
             data = data_common;
-
-            common = 'Queja';
-        }
+        };
 
         const reclamo: Reclamo = await prisma.reclamo.create({ data });
 
         return res.status(201).json({
-            message: `${common} se creó correctamente.`,
+            message: `${tipo_reclamo_body.substring(0,1).toUpperCase() + tipo_reclamo_body.slice(1).toLowerCase()} se creó correctamente.`,
             ok:true
         });
         
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             message:"Internal Server error",
             ok:false
         });
-    }
-}
+    };
+};
