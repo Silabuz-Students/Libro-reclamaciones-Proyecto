@@ -46,7 +46,7 @@ export default async function handler(
 
         const nro_seguimiento  = `${RoQ}-${num_seg}-${year}`;
 
-        const data_common = {
+        const data = {
             nro_seguimiento,
             nombres: body.nombres,
             apellidos: body.apellidos,
@@ -65,29 +65,19 @@ export default async function handler(
             motivo_reclamo: body.motivo_reclamo,
             pedido_reclamo: body.pedido_reclamo,
             estado_reclamo: body.estado_reclamo,
+            detalle_reclamo: {
+                create: {
+                    fecha_compra: new Date(body.detalle_reclamo.fecha_compra),
+                    tipo_comprobante: body.detalle_reclamo.tipo_comprobante,
+                    nro_comprobante: body.detalle_reclamo.nro_comprobante,
+                    monto_producto: body.detalle_reclamo.monto_producto,
+                    codigo_producto: body.detalle_reclamo.codigo_producto,
+                    detalle_producto: body.detalle_reclamo.detalle_producto
+                }
+            },
             empresa: {connect: {
                 id: body.empresaId
             }}
-        };
-
-        let data:Prisma.ReclamoCreateInput;
-
-        if (body.detalle_reclamo != null) {
-            data = {
-                ...data_common,
-                detalle_reclamo: {
-                    create: {
-                        fecha_compra: new Date(body.detalle_reclamo.fecha_compra),
-                        tipo_comprobante: body.detalle_reclamo.tipo_comprobante,
-                        nro_comprobante: body.detalle_reclamo.nro_comprobante,
-                        monto_producto: body.detalle_reclamo.monto_producto,
-                        codigo_producto: body.detalle_reclamo.codigo_producto,
-                        detalle_producto: body.detalle_reclamo.detalle_producto
-                    }
-                }
-            }
-        } else {
-            data = data_common;
         };
 
         const reclamo: Reclamo = await prisma.reclamo.create({ data });
