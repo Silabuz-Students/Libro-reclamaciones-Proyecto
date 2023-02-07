@@ -1,19 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
-const prisma = new PrismaClient();
+import  prisma from '@/services/prisma';
 
 export default async function GetReclamos(req: NextApiRequest, res: NextApiResponse) {
     const { method } = req;
-    const userId = req.headers.userid;
-    const idEmpresa = Number(userId);
+    const session = await getServerSession(req, res, authOptions);
+    const idUser = Number(session?.user?.id);
 
     switch (method) {
         case 'GET':
             try {
                 const reclamosCerrados = await prisma.reclamo.findMany({
                     where: {
-                        empresa: { id: idEmpresa },
+                        empresa: { id: idUser },
                         estado_reclamo: 'CERRADO'
                     },
                     include: {

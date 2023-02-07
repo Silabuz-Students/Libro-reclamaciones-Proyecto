@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import  prisma from '@/services/prisma';
 
 export default async function ReclamoById(req: NextApiRequest, res: NextApiResponse) {
     const { method, query } = req;

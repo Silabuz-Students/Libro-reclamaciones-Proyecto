@@ -1,11 +1,16 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import router, { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from "next-auth/react"
+
+const handleSignOutAndRedirect = () => {
+    signOut({ redirect:false});
+    router.push('/auth/signin');
+};
 
 export default function HeaderNav() {
     const router = useRouter();
     const { data: session } = useSession();
-    
+
     return (
         <nav id="header" className="bg-white w-full z-10 top-0 shadow ">
 
@@ -19,21 +24,17 @@ export default function HeaderNav() {
                 <div className="w-1/2 pr-0">
                     <div className="flex relative inline-block float-right">
 
-                        <div className="relative text-sm">
+                        <div className="relative text-sm flex">
                             <button id="userButton" className="flex items-center focus:outline-none mr-3">
                                 <img className="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of User" /> <span className="hidden md:inline-block">Hi, {session?.user?.name} </span>
 
                             </button>
-                            <div id="userMenu" className="bg-white rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
-                                <ul className="list-reset">
-                                    <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">My account</a></li>
-                                    <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Notifications</a></li>
-                                    <li>
-                                        <hr className="border-t mx-2 border-gray-400" />
-                                    </li>
-                                    <li><a href="#" className="px-4 py-2 block text-gray-900 hover:bg-gray-400 no-underline hover:no-underline">Logout</a></li>
-                                </ul>
-                            </div>
+                            <button
+                                type="button"
+                                onClick={handleSignOutAndRedirect}
+                                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                Logout
+                            </button>
                         </div>
 
 
@@ -91,6 +92,8 @@ export default function HeaderNav() {
                 </div>
 
             </div>
+
         </nav>
+
     )
 }
