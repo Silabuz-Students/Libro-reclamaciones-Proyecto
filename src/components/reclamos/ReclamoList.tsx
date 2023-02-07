@@ -22,7 +22,7 @@ function ReclamoList(reclamos: Props) {
     
     const handleClick = async (id: string) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/reclamos/${id}`, {
+            const res = await fetch(`/api/reclamos/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,9 @@
 import Layout from '@/components/Layout';
+import { getSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next/types';
 import ReclamoList from '../../components/reclamos/ReclamoList';
 import { Reclamo } from '../../interfaces/Reclamo';
+const urlbase = process.env.NEXTAUTH_URL
 
 interface Props {
     reclamos: Reclamo[]
@@ -19,12 +22,14 @@ export function Dashboard({ reclamos }: Props) {
 }
 
 
-export const getServerSideProps = async () => {    
-    const res = await fetch(`http://localhost:3000/api/reclamos`, {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    //const session = await getSession({ req });
+    
+    const res = await fetch(`${urlbase}/api/reclamos`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'userId': '7'
+            cookie: req.headers.cookie || ''
         }
     });
     const reclamos = await res.json()

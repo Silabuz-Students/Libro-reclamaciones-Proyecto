@@ -1,6 +1,9 @@
 import Layout from '@/components/Layout';
 import CerradoList from '../../components/reclamos/CerradoList';
 import { Reclamo } from '../../interfaces/Reclamo';
+import { GetServerSideProps } from 'next/types';
+const urlbase = process.env.NEXTAUTH_URL;
+
 interface Props {
     reclamosCerrados: Reclamo[]
 }
@@ -12,12 +15,12 @@ export function Cerrados({ reclamosCerrados }: any) {
     </>)
 }
 
-export const getServerSideProps = async () => {
-    const res = await fetch('http://localhost:3000/api/reclamos/cerrados', {
+export const getServerSideProps: GetServerSideProps = async ({req})  => {
+    const res = await fetch(`${urlbase}/api/reclamos/cerrados`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'userId': '7'
+            cookie: req.headers.cookie||''
         }
     });
     const reclamos = await res.json()
