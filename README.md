@@ -1,4 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project 
+## Libro de reclamaciones
+
+
+#Integrantes
+
+- [Marie Flores Moran](https://github.com/mariesfloresmoran)
+- [Jaime Paolo Cenzano Gonzales](https://github.com/JPCenz)
+- [Johann Condori Cajchaya](https://github.com/joe7hann)
+- [Cesar Quesñay Reque](https://github.com/joe7hann)
+- [Paulo Pier Véliz Suárez](https://github.com/PauloVeliz)
+- [Angel Emanuel Fernandez Velarde](https://github.com/Jokemura)
+
+
+Para inicializar 
 ## Getting Started
 
 Crear un archivo .env.local   y .env en la raiz del proyecto . Debe estar actualizado con los valores que se encuentran en .env.example
