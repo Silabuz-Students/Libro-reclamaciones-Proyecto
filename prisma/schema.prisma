@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -15,17 +15,14 @@ model Empresa {
   ruc               String       @unique
   nombre            String
   domicilio_fiscal  String
-  telefono          String    @db.VarChar(12) @unique
+  telefono          String    @unique
   email             String    @unique
   password          String
-
-  code_confirm      String?   @db.VarChar(4)
   last_session      DateTime?
   created_at        DateTime  @default(now())
   updated_at        DateTime  @updatedAt
   
   reclamos Reclamo[]
-
   @@map("empresas")
 }
 
@@ -51,12 +48,9 @@ model Reclamo {
   motivo_reclamo    String
   pedido_reclamo    String
   estado_reclamo    Estado_Reclamo @default(ABIERTO)
-
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
-
   detalle_reclamo   Detalle_reclamo?
-
   empresa           Empresa @relation(fields: [empresaId], references: [id])
   empresaId         Int
   @@map("reclamos")
@@ -83,10 +77,8 @@ model Detalle_reclamo {
   monto_producto    Float
   codigo_producto   String
   detalle_producto  String
-
   reclamo           Reclamo @relation(fields: [reclamoId], references: [id])
   reclamoId         Int  @unique
-
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
   

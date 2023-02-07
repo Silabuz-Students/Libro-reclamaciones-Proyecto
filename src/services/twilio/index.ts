@@ -5,17 +5,13 @@ let PHONE_NUMBER = 'phoneNumber';
 const client =  twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 
-function genereteCode(){
-  return Math.floor(1000 +Math.random()*9000);
-}
 
-export default async function enviarSMS (phoneNumber: string,  body: string){
+export default async function enviarSMS (phoneNumber: string,){
   try{
-    const code = genereteCode();
     const message = await client.messages.create({
       to: phoneNumber,
       from: process.env.TWILIO_PHONE_NUMBER,
-      body: `Hola tu codigo de verificacion es ${code} `
+      body: `Hola Gracias por tu registro en Libro Reclamaciones Virtual `
     });
     return (message) ;
 
