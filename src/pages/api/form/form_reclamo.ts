@@ -64,7 +64,6 @@ export default async function handler(
             tipo_reclamo: body.tipo_reclamo,
             motivo_reclamo: body.motivo_reclamo,
             pedido_reclamo: body.pedido_reclamo,
-            estado_reclamo: body.estado_reclamo,
             detalle_reclamo: {
                 create: {
                     fecha_compra: new Date(body.detalle_reclamo.fecha_compra),
@@ -88,6 +87,7 @@ export default async function handler(
         });
         
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message:"Internal Server error",
             ok:false
