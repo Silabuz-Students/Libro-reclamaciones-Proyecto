@@ -1,6 +1,8 @@
+import { sendEmail } from "@/services/nodemail";
 import prisma from "@/services/prisma";
 import { Reclamo, Detalle_reclamo, Prisma } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next/types";
+
 
 type Data = {
     message: string
@@ -82,12 +84,19 @@ export default async function handler(
 
         const reclamo: Reclamo = await prisma.reclamo.create({ data });
 
+        const nombr = reclamo.nombres;
+        const emai = "dragon12cr@gmail.com";
+        const nseguimiento = reclamo.nro_seguimiento;
+
+        await sendEmail(nombr, emai, nseguimiento);
+
         return res.status(201).json({
             message: `${tipo_reclamo_body.substring(0,1).toUpperCase() + tipo_reclamo_body.slice(1).toLowerCase()} se creó correctamente.`,
             ok:true
         });
         
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message:"Internal Server error",
             ok:false
