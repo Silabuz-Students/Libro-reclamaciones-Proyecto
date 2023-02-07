@@ -50,10 +50,13 @@ export default function Document() {
                                         Mayor de edad
                                     </label>
                                     <div className="mt-1 sm:mt-0 sm:col-span-2">
-                                    <select id="oldenougth" className="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-                                        <option>Sí</option>
-                                        <option>No</option>
-                                    </select>
+                                        <input
+                                            id="comments"
+                                            name="comments"
+                                            type="checkbox"
+                                            className="h-4 w-4 mr-2 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        /> Sí
+                                    
                                     </div>
                                 </div>
 
