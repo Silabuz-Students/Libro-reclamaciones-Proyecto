@@ -3,7 +3,7 @@ import router, { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from "next-auth/react"
 
 const handleSignOutAndRedirect = () => {
-    signOut({ redirect:false,callbackUrl:"/"});
+    signOut({ redirect:true,callbackUrl:"/"});
     // router.push('/auth/signin');
 };
 
