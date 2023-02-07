@@ -1,11 +1,14 @@
 This is a [Next.js](https://nextjs.org/) project 
-## Getting Started
+## Instalacion Local del proyecto
 
 Crear un archivo .env.local   y .env en la raiz del proyecto . Debe estar actualizado con los valores que se encuentran en .env.example
 
 ```bash
 DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"
 NEXTAUTH_URL=http://localhost:3000/
+TWILIO_ACCOUNT_SID = ""
+TWILIO_AUTH_TOKEN = ""
+TWILIO_PHONE_NUMBER = ""
 ```
 
 Instalar nuevas dependencias

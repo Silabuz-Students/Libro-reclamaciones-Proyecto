@@ -3,6 +3,7 @@ import { Empresa } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import { hashPassword, comparePassword } from "@/lib/auth";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import enviarSMS from "@/services/twilio";
 
 type Data = {
     message: string
@@ -40,11 +41,17 @@ export default async function handler(
             password: await hashPassword(password)
         }
         const empresaCreada = await prisma.empresa.create({ data })
+        console.log(empresaCreada.telefono)
+
+        const message = await  enviarSMS(empresaCreada.telefono)
+        console.log(message)
 
         return res.status(201).json({
             message: "usuario creado correctamente",
             ok: true
         })
+
+        
 
     } catch (error) {
 
