@@ -1,6 +1,4 @@
 import NextAuth, { User } from "next-auth"
-import type { Empresa } from "@prisma/client"
-
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import { Session } from "next-auth";

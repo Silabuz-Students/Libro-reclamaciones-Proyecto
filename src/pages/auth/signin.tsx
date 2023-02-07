@@ -81,7 +81,7 @@ return (
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
         </p>
         <p className="flex flex-col items-center justify-center mt-10 text-center">
-          <span>Don't have an account?</span>
+          <span>No tienes una Cuenta?</span>
           <a href="#" className="underline" onClick={() => router.push('/auth/register')}>Get Started!</a>
         </p>
         <p className="mt-6 text-sm text-center text-gray-300">
