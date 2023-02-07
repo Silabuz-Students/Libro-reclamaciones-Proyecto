@@ -1,6 +1,8 @@
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import Image from 'next/image'
 
 interface Props { }
 
@@ -100,10 +102,26 @@ const SubscriptionCard: React.FC<Props> = () => {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <div className="xl:grid xl:grid-cols-2 xl:gap-8">
             <div className="space-y-4 xl:col-span-1">
+              <Link href={"/form/formulario"} passHref>
+
+                <span className="text-gray-500 text-base">
+                Ingrese su Reclamo Aqui
+                  <Image
+                    src="/book-open-svgrepo-com.svg"
+                    alt="13"
+                    width={40}
+                    height={31}
+                    priority
+                  />
+                  
+                </span>
+              </Link>
+
               <img className="h-10" src="https://tailwindui.com/img/logos/workflow-mark-gray-300.svg" alt="Company name" />
               <p className="text-gray-500 text-base">
                 Construyendo una mejor relación con tus clientes.
               </p>
+
               <div className="flex space-x-6">
 
                 <a href="#" className="text-gray-400 hover:text-gray-500">
