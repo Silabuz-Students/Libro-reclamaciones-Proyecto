@@ -74,101 +74,34 @@ function CerradoList(reclamosCerrados: Props) {
 
                 </table>
             </div>
+            
             <div
-                className="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-100"
+                className="py-4 fixed  left-0 right-0 flex items-center justify-center"
             >
-                <span className="flex items-center col-span-3">
-                    Showing 21-30 of 100
-                </span>
-                <span className="col-span-2"></span>
-                <span className="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                    <nav aria-label="Table navigation">
-                        <ul className="inline-flex items-center">
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Previous"
-                                >
-                                    <svg
-                                        aria-hidden="true"
-                                        className="w-4 h-4 fill-current"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd"
-                                            fill-rule="evenodd"
-                                        ></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    1
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    2
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    3
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    4
-                                </button>
-                            </li>
-                            <li>
-                                <span className="px-3 py-1">...</span>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    8
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                                >
-                                    9
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    className="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                    aria-label="Next"
-                                >
-                                    <svg
-                                        className="w-4 h-4 fill-current"
-                                        aria-hidden="true"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd"
-                                            fill-rule="evenodd"
-                                        ></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </span>
+                <nav aria-label="Pagination" className="inline-flex -space-x-px rounded-md shadow-sm bg-gray-100 text-gray-800">
+                    <button type="button" className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-l-md border-gray-300">
+                        <span className="sr-only">Previous</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="w-5 h-5">
+                            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                        </svg>
+                    </button>
+                    <button type="button" aria-current="page" className="inline-flex items-center px-4 py-2 text-sm font-semibold border bg-blue-600 text-gray-50 border-gray-300">1</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">2</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">3</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">...</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">7</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">8</button>
+                    <button type="button" className="inline-flex items-center px-4 py-2 text-sm font-semibold border border-gray-300">9</button>
+                    <button type="button" className="inline-flex items-center px-2 py-2 text-sm font-semibold border rounded-r-md border-gray-300">
+                        <span className="sr-only">Next</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="w-5 h-5">
+                            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
+                        </svg>
+                    </button>
+                </nav>
             </div>
+
+
         </div>
 
 

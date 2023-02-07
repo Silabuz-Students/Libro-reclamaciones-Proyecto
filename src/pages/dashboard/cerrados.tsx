@@ -13,7 +13,13 @@ export function Cerrados({ reclamosCerrados }: any) {
 }
 
 export const getServerSideProps = async () => {
-    const res = await fetch('http://localhost:3000/api/reclamos/cerrados')
+    const res = await fetch('http://localhost:3000/api/reclamos/cerrados', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'userId': '7'
+        }
+    });
     const reclamos = await res.json()
     return {
         props: {

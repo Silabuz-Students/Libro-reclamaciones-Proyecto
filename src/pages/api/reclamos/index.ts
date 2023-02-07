@@ -5,8 +5,10 @@ const prisma = new PrismaClient();
 
 export default async function GetReclamos(req: NextApiRequest, res: NextApiResponse) {
     const { method, body } = req;
+    const userId = req.headers.userid;
+
     //entra un token y saca id de la empresa
-    const idEmpresa = 1;
+    const idEmpresa = Number(userId);
 
     switch(method){
         case 'GET':

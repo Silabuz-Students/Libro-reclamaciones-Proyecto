@@ -5,13 +5,15 @@ const prisma = new PrismaClient();
 
 export default async function GetReclamos(req: NextApiRequest, res: NextApiResponse) {
     const { method } = req;
+    const userId = req.headers.userid;
+    const idEmpresa = Number(userId);
 
     switch (method) {
         case 'GET':
             try {
                 const reclamosCerrados = await prisma.reclamo.findMany({
                     where: {
-                        empresa: { id: 7 },
+                        empresa: { id: idEmpresa },
                         estado_reclamo: 'CERRADO'
                     },
                     include: {
