@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
+import { useSession } from 'next-auth/react';
 
 export default function HeaderNav() {
     const router = useRouter();
+    const { data: session } = useSession();
+    
     return (
         <nav id="header" className="bg-white w-full z-10 top-0 shadow ">
 
@@ -19,7 +21,7 @@ export default function HeaderNav() {
 
                         <div className="relative text-sm">
                             <button id="userButton" className="flex items-center focus:outline-none mr-3">
-                                <img className="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of User" /> <span className="hidden md:inline-block">Hi, User </span>
+                                <img className="w-8 h-8 rounded-full mr-4" src="http://i.pravatar.cc/300" alt="Avatar of User" /> <span className="hidden md:inline-block">Hi, {session?.user?.name} </span>
 
                             </button>
                             <div id="userMenu" className="bg-white rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
@@ -48,7 +50,7 @@ export default function HeaderNav() {
                 </div>
 
 
-                <div className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-20" id="nav-content">
+                <div className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white z-10" id="nav-content">
                     <ul className="list-reset lg:flex flex-1 items-center px-4 md:px-0">
                         <li className="mr-6 my-2 md:my-0">
                             <Link href="/dashboard" className="block py-1 md:py-3 pl-1 align-middle text-pink-600 no-underline hover:text-gray-900 border-b-2 border-orange-600 hover:border-orange-600">
@@ -56,7 +58,7 @@ export default function HeaderNav() {
                             </Link>
                         </li>
                         <li className="mr-6 my-2 md:my-0">
-                            <Link  href="/dashboard/cerrados" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
+                            <Link href="/dashboard/cerrados" className="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-gray-900 border-b-2 border-white hover:border-pink-500">
                                 <i className="fas fa-tasks fa-fw mr-3"></i><span className="pb-1 md:pb-0 text-sm">Reclamos culminados</span>
                             </Link>
                         </li>

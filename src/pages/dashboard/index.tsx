@@ -1,4 +1,3 @@
-//import ReclamoList from '@/components/reclamos/ReclamoList';
 import Layout from '@/components/Layout';
 import ReclamoList from '../../components/reclamos/ReclamoList';
 import { Reclamo } from '../../interfaces/Reclamo';
@@ -19,8 +18,15 @@ export function Dashboard({ reclamos }: Props) {
     </>)
 }
 
-export const getServerSideProps = async () => {
-    const res = await fetch('http://localhost:3000/api/reclamos')
+
+export const getServerSideProps = async () => {    
+    const res = await fetch(`http://localhost:3000/api/reclamos`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'userId': '7'
+        }
+    });
     const reclamos = await res.json()
     return {
         props: {
