@@ -57,7 +57,7 @@ const Signin = ({ providers, csrfToken }: props) => {
       if (!res.ok) {
         setErrors("Contrasena o usuario incorrecto");
       } else {
-        router.push("/app")
+        router.push("/dashboard")
       }
     })
   } else {
@@ -189,7 +189,7 @@ export async function getServerSideProps(context: Context) {
   if (session) {
 
     return {
-      redirect: { destination: "/dashboard" },
+      redirect: { destination: "http://localhost:3000/dashboard" },
     };
   }
   return {

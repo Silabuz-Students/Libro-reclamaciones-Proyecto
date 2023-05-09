@@ -52,6 +52,8 @@ const SubscriptionCard: React.FC<Props> = () => {
                           <button
                             className="mt-5 group relative flex w-full justify-center rounded-md border border-transparent bg-gray-400 py-2 px-4 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             onClick={() => router.push("/auth/register")}
+                            id='suscribe'
+                            data-testid="suscribe"
                           >
                             Suscribirme
                           </button>
